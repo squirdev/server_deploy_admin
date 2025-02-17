@@ -75,6 +75,13 @@
             </div>
           </template>
         </span>
+        <span slot="isOnline" slot-scope="text,record">
+          <template>
+            <div>
+              <div :title="record.isOnline == null ? 'offline': 'online'" :color="record.isOnline == !null ? 'green' : 'red'">{{ record.isOnline == !null ? '🟢' : '🔴' }}</div>
+            </div>
+          </template>
+        </span>
         <template slot="action" slot-scope="text,record">
           <a slot="action" href="javascript:;"
             @click="currentDetails = record; $refs.detailuserdialog.userDialog = true">用户详情</a>
@@ -187,6 +194,12 @@ export default {
           scopedSlots: { customRender: 'isLogin' },
         },
         {
+          title: '在线状态',
+          dataIndex: 'isOnline',
+          align: "center",
+          scopedSlots: { customRender: 'isOnline' },
+        },
+        {
           title: '注册时间',
           dataIndex: 'regTime',
           align: "center",
@@ -263,6 +276,9 @@ export default {
     },
     geteditinit() {
       this.getuserList()
+    },
+    getUserOnlineStatus() {
+
     },
     getuserList() {
       var that = this;
